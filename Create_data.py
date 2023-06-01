@@ -13,6 +13,8 @@ ORDER BY rating DESC
 LIMIT 1;
 """
 
+DELETE_BEAN = "DELETE FROM beans WHERE id = ?;"
+
 def connect():
     return sqlite3.connect('data.db')
 
@@ -35,3 +37,7 @@ def get_beans_by_name(connection, name):
 def get_best_preparation_for_bean(connection, name):
     with connection:
         return connection.execute(GET_BEST_PREPARATION_FOR_BEAN, (name,)).fetchone()
+
+def delete_bean(connection, bean_id):
+    with connection:
+        connection.execute(DELETE_BEAN, (bean_id,))
