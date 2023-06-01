@@ -19,35 +19,16 @@ def menu():
     while (user_input := input(MENU_PROMPT)) != "5":
         print(user_input)
         if user_input == "1":
-            name = input("enter bean name: ")
-            method = input ("enter how u have prepared it: ")
-            rating = int (input("enter your rating (0-100): "))
-            
-            Create_data.add_bean(connection, name ,method, rating)
+           prompt_add_new_bean(connection)
             
         elif user_input == "2":
-            beans = Create_data.get_all_beans(connection)
+           prompt_see_all_bean(connection)
 
-            for bean in beans:
-                print(f"{bean[1]} ({bean[2]}) - {bean[3]}/100 ")
         elif user_input == "3":
-            name = input ("enter bean by name to find:")
-            bean = Create_data.get_beans_by_name(connection, name)
-
-
-            for bean in beans:
-                print(f"{bean[1]} ({bean[2]}) - {bean[3]}/100 ")
-            
-
-
+           prompt_find_bean(connection)
 
         elif user_input == "4":
-            name = input("enter bean name find:")
-            best_method =Create_data.get_best_preparation_for_bean(connection,name)
-
-            print(f"the best preparation method for {name} is: { best_method[2]}")
-            
-
+           prompt_find_best_method(connection)
 
         else:
             print("INVALID INPUT TY AGAIN")
@@ -80,7 +61,7 @@ def prompt_find_bean(connection):
 
 def prompt_find_best_method(connection):
     name = input("enter bean name to find: ")
-    beast_method = Create_data.get_best_preparation_for_bean(connection, name)
+    best_method = Create_data.get_best_preparation_for_bean(connection, name)
 
     print(f"the best preparation method for {name} is: {best_method[2]}.")
 
