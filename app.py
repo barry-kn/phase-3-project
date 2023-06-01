@@ -26,7 +26,10 @@ def menu():
             Create_data.add_bean(connection, name ,method, rating)
             
         elif user_input == "2":
-            pass
+            beans = Create_data.get_all_beans(connection)
+
+            for bean in beans:
+                print(bean)
         elif user_input == "3":
             pass
         elif user_input == "4":
