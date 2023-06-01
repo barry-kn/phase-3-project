@@ -1,43 +1,37 @@
-## =  +
-
 import sqlite3
 
-CREATE_BEANS_TABLE =  "CREATE TABLE iIF NOT EXIST beans (id INTEGER PRIMARY KEY, name TEXT, methord TEXT, rating INTEGER);" 
+CREATE_BEANS_TABLE = "CREATE TABLE IF NOT EXISTS beans (id INTEGER PRIMARY KEY, name TEXT, method TEXT, rating INTEGER);"
 
-INSERT_BEAN = "INSERT INTO bean (name, methord,rating) VALUE (?,?,?);"
+INSERT_BEAN = "INSERT INTO beans (name, method, rating) VALUES (?, ?, ?);"
 
-GET_ALL_BEAN ="SELECT * FROM BEAN;"
-GET_BEAN_BY_NAME = "SELECT*FROM beans WHERE name = ?;"
-GET_BEST_PREPARETION_FOR_BEAN =""""
+GET_ALL_BEANS = "SELECT * FROM beans;"
+GET_BEAN_BY_NAME = "SELECT * FROM beans WHERE name = ?;"
+GET_BEST_PREPARATION_FOR_BEAN = """
 SELECT * FROM beans
 WHERE name = ?
-ORDER BY rating DEC
+ORDER BY rating DESC
 LIMIT 1;
 """
 
 def connect():
-  return sqlite3.connect('data.db')
+    return sqlite3.connect('data.db')
 
-def creat_tables(connection):
- with connection:
-    connection.execute(CREATE_BEANS_TABLE)
+def create_tables(connection):
+    with connection:
+        connection.execute(CREATE_BEANS_TABLE)
 
-
-def add_bean(connection,name, methord, rating):
-   with connection:
-     connection.execute(INSERT_BEAN, (name,methord, rating))
-
+def add_bean(connection, name, method, rating):
+    with connection:
+        connection.execute(INSERT_BEAN, (name, method, rating))
 
 def get_all_beans(connection):
- with connection:
-   return connection.execute(GET_ALL_BEAN).fetchall()
-
-
+    with connection:
+        return connection.execute(GET_ALL_BEANS).fetchall()
 
 def get_beans_by_name(connection, name):
- with connection:
-   return connection.execute(GET_BEAN_BY_NAME).fetchall()
+    with connection:
+        return connection.execute(GET_BEAN_BY_NAME, (name,)).fetchall()
 
-def get_best_preparetion_for_bean(connection, name):
-  with connection:
-    return connection.execute (GET_BEST_PREPARETION_FOR_BEAN,(name,)).fetchone()
+def get_best_preparation_for_bean(connection, name):
+    with connection:
+        return connection.execute(GET_BEST_PREPARATION_FOR_BEAN, (name,)).fetchone()
