@@ -140,3 +140,15 @@ def prompt_see_all_beans(session, display_area=False):
                 print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
     else:
         print("No beans found.")
+
+def prompt_rate_bean(session):
+    name = input("Enter bean name: ")
+    rating = int(input("Enter rating score (0-100): "))
+
+    bean = session.query(Bean).filter_by(name=name).first()
+    if bean:
+        bean.rating = rating
+        session.commit()
+        print("Bean rated successfully!")
+    else:
+        print("Bean not found.")
