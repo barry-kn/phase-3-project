@@ -166,3 +166,19 @@ def prompt_add_new_bean(session):
     session.add(bean)
     session.commit()
     print("Bean added successfully!")
+
+def prompt_add_bean_method(session):
+    name = input("Enter bean name: ")
+    method = input("Enter preparation method: ")
+
+    bean = session.query(Bean).filter_by(name=name).first()
+    if bean:
+        bean.method = method
+        session.commit()
+        print("Method added for the bean successfully!")
+    else:
+        print("Bean not found.")
+
+
+menu()
+
