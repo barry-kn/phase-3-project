@@ -29,7 +29,7 @@ def menu():
             
 
         elif user_input == "4":
-            pass
+             prompt_add_new_bean(session)
             
 
         elif user_input == "5":
