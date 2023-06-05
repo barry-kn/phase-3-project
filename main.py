@@ -124,3 +124,19 @@ Your selection: """)
 
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
+
+def prompt_see_all_beans(session, display_area=False):
+    beans = session.query(Bean).order_by(Bean.rating.desc()).all()
+    if beans:
+        print("List of all beans (sorted by rating in descending order):")
+        for bean in beans:
+            farmer = session.query(Farmer).filter_by(id=bean.farmer_id).first()
+            if farmer:
+                if display_area:
+                    print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: {farmer.area}")
+                else:
+                    print(f"Bean: {bean.name}, Rating: {bean.rating}")
+            else:
+                print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
+    else:
+        print("No beans found.")
