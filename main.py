@@ -21,7 +21,7 @@ def menu():
          user_menu(session)
             
         elif user_input == "2":
-            pass
+            prompt_rate_bean(session)
             
 
         elif user_input == "3":
