@@ -83,3 +83,44 @@ Your selection: """)
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
+
+def farmer_menu(session):
+    farmer_option = ""
+    while farmer_option != "3":
+        farmer_option = input("""
+-- Farmer Menu --
+Please choose one of these options:
+
+1) Add a new bean.
+2) Go back to main menu.
+Your selection: """)
+
+        if farmer_option == "1":
+            prompt_add_new_bean(session)
+
+        elif farmer_option == "2":
+            break
+
+        else:
+            print("INVALID INPUT. PLEASE TRY AGAIN.")
+
+
+def hotel_menu(session):
+    hotel_option = ""
+    while hotel_option != "3":
+        hotel_option = input("""
+-- Hotel Menu --
+Please choose one of these options:
+
+1) Add method for a bean.
+2) Go back to main menu.
+Your selection: """)
+
+        if hotel_option == "1":
+            prompt_add_bean_method(session)
+
+        elif hotel_option == "2":
+            break
+
+        else:
+            print("INVALID INPUT. PLEASE TRY AGAIN.")
