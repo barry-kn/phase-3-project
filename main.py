@@ -62,3 +62,24 @@ Your selection: """)
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
+
+def government_menu(session):
+    government_option = ""
+    while government_option != "2":
+        government_option = input("""
+-- Government Menu --
+Please choose one of these options:
+
+1) See all beans (sorted by rating in descending order).
+2) Go back to main menu.
+Your selection: """)
+
+        if government_option == "1":
+            prompt_see_all_beans(session, display_area=True)
+
+        elif government_option == "2":
+            break
+
+        else:
+            print("INVALID INPUT. PLEASE TRY AGAIN.")
+
