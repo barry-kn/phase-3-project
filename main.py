@@ -1,3 +1,4 @@
+
 from Create_data import connect, Bean, Farmer
 
 MENU_PROMPT = """
@@ -18,25 +19,23 @@ def menu():
         user_input = input(MENU_PROMPT)
 
         if user_input == "1":
-         user_menu(session)
+            user_menu(session)
             
         elif user_input == "2":
-            prompt_rate_bean(session)
-            
+            government_menu(session)
 
         elif user_input == "3":
-            prompt_see_all_beans(session, display_area=True)
-            
+            farmer_menu(session)
 
         elif user_input == "4":
-             prompt_add_new_bean(session)
-            
+            hotel_menu(session)
 
         elif user_input == "5":
-           prompt_add_bean_method(session)
+            break
 
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
+
 
 def user_menu(session):
     user_option = ""
@@ -125,6 +124,7 @@ Your selection: """)
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
+
 def prompt_see_all_beans(session, display_area=False):
     beans = session.query(Bean).order_by(Bean.rating.desc()).all()
     if beans:
@@ -140,6 +140,7 @@ def prompt_see_all_beans(session, display_area=False):
                 print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
     else:
         print("No beans found.")
+
 
 def prompt_rate_bean(session):
     name = input("Enter bean name: ")
@@ -167,6 +168,7 @@ def prompt_add_new_bean(session):
     session.commit()
     print("Bean added successfully!")
 
+
 def prompt_add_bean_method(session):
     name = input("Enter bean name: ")
     method = input("Enter preparation method: ")
@@ -181,4 +183,3 @@ def prompt_add_bean_method(session):
 
 
 menu()
-
