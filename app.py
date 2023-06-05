@@ -1,7 +1,7 @@
 import Create_data
 
 MENU_PROMPT = """
--- Coffee Bean App --
+-- prediction app --
 Please choose one of these options:
 
 1) Add a new bean.
