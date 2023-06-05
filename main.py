@@ -33,7 +33,7 @@ def menu():
             
 
         elif user_input == "5":
-            break
+           prompt_add_bean_method(session)
 
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
