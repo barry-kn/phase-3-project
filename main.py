@@ -25,7 +25,7 @@ def menu():
             
 
         elif user_input == "3":
-            pass
+            prompt_see_all_beans(session, display_area=True)
             
 
         elif user_input == "4":
