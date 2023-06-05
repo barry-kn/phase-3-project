@@ -152,3 +152,17 @@ def prompt_rate_bean(session):
         print("Bean rated successfully!")
     else:
         print("Bean not found.")
+
+def prompt_add_new_bean(session):
+    name = input("Enter bean name: ")
+    farmer_id = int(input("Enter farmer ID: "))
+    area = input("Enter farmer's area: ")  
+
+    farmer = Farmer(id=farmer_id, area=area)  
+    session.add(farmer)  
+    session.commit()  
+
+    bean = Bean(name=name, farmer_id=farmer_id)
+    session.add(bean)
+    session.commit()
+    print("Bean added successfully!")
