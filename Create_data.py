@@ -1,4 +1,4 @@
-# create_data.py
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -24,6 +24,14 @@ class Bean(Base):
     rating = Column(Integer)
     farmer_id = Column(Integer, ForeignKey('farmers.id'))
     farmer = relationship('Farmer', back_populates='beans')
+
+
+class Government(Base):
+    __tablename__ = 'government'
+    id = Column(Integer, primary_key=True)
+    bean_name = Column(String)
+    rating = Column(Integer)
+    farmer_area = Column(String)
 
 
 def connect():

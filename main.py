@@ -1,5 +1,5 @@
 
-from Create_data import connect, Bean, Farmer
+from Create_data import connect, Bean, Farmer, Government
 
 MENU_PROMPT = """
 -- Prediction App --
@@ -12,6 +12,7 @@ Please choose one of these options:
 5) Exit
 Your selection: """
 
+
 def menu():
     session = connect()
 
@@ -20,7 +21,7 @@ def menu():
 
         if user_input == "1":
             user_menu(session)
-            
+
         elif user_input == "2":
             government_menu(session)
 
@@ -74,7 +75,7 @@ Please choose one of these options:
 Your selection: """)
 
         if government_option == "1":
-            prompt_see_all_beans(session, display_area=True)
+            prompt_see_all_beans_government(session)
 
         elif government_option == "2":
             break
@@ -125,17 +126,14 @@ Your selection: """)
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
 
-def prompt_see_all_beans(session, display_area=False):
+def prompt_see_all_beans(session):
     beans = session.query(Bean).order_by(Bean.rating.desc()).all()
     if beans:
         print("List of all beans (sorted by rating in descending order):")
         for bean in beans:
             farmer = session.query(Farmer).filter_by(id=bean.farmer_id).first()
             if farmer:
-                if display_area:
-                    print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: {farmer.area}")
-                else:
-                    print(f"Bean: {bean.name}, Rating: {bean.rating}")
+                print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: {farmer.area}")
             else:
                 print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
     else:
@@ -154,14 +152,32 @@ def prompt_rate_bean(session):
     else:
         print("Bean not found.")
 
+
+def prompt_see_all_beans_government(session):
+    beans = session.query(Bean).order_by(Bean.rating.desc()).all()
+    if beans:
+        print("List of all beans (sorted by rating in descending order):")
+        for bean in beans:
+            farmer = session.query(Farmer).filter_by(id=bean.farmer_id).first()
+            if farmer:
+                print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: {farmer.area}")
+                government = Government(bean_name=bean.name, rating=bean.rating, farmer_area=farmer.area)
+                session.add(government)
+                session.commit()
+            else:
+                print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
+    else:
+        print("No beans found.")
+
+
 def prompt_add_new_bean(session):
     name = input("Enter bean name: ")
     farmer_id = int(input("Enter farmer ID: "))
-    area = input("Enter farmer's area: ")  
+    area = input("Enter farmer's area: ")
 
-    farmer = Farmer(id=farmer_id, area=area)  
-    session.add(farmer)  
-    session.commit()  
+    farmer = Farmer(id=farmer_id, area=area)
+    session.add(farmer)
+    session.commit()
 
     bean = Bean(name=name, farmer_id=farmer_id)
     session.add(bean)
