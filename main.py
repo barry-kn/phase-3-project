@@ -1,5 +1,6 @@
 
 from Create_data import connect, Bean, Farmer, Government
+ 
 
 MENU_PROMPT = """
 -- Prediction App --
@@ -38,6 +39,8 @@ def menu():
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
 
+############# UUUUUUUUUUUUUUUUUUU ##########
+
 def user_menu(session):
     user_option = ""
     while user_option != "3":
@@ -61,7 +64,11 @@ Your selection: """)
 
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
+###### eeeeeeeeeee uuuuuuuuuuuuuuuu  #######################
 
+
+
+################# GGGGGGGGGGGGGGGGGGG #################
 
 def government_menu(session):
     government_option = ""
@@ -83,27 +90,42 @@ Your selection: """)
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
+######### eeeeeeeeeeeeeeeeeeeeeeeeeee ###########
+
+
+
+################# FFFFFFFFFFFFFFFFFFFFFFFFFF ####################
 
 def farmer_menu(session):
     farmer_option = ""
-    while farmer_option != "3":
+    while farmer_option != "4":
         farmer_option = input("""
 -- Farmer Menu --
 Please choose one of these options:
 
 1) Add a new bean.
-2) Go back to main menu.
+2) Delete a farmer and their details.
+3) Go back to the main menu.
 Your selection: """)
 
         if farmer_option == "1":
             prompt_add_new_bean(session)
 
         elif farmer_option == "2":
+            prompt_delete_farmer(session)
+
+        elif farmer_option == "3":
             break
 
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
+################ eeeeeeeeeeeeeeeeeeeeeeee #########################
+
+
+
+
+########## HHHHHHHHHHHHHHHHHHHHHHHH ##################################
 
 def hotel_menu(session):
     hotel_option = ""
@@ -125,7 +147,11 @@ Your selection: """)
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")
 
+######## eeeeeeeeeeeeeeeeeeeeeeeeee ################################
 
+
+
+############   111111111 uuuuuuuuuuuuu#############
 def prompt_see_all_beans(session):
     beans = session.query(Bean).order_by(Bean.rating.desc()).all()
     if beans:
@@ -138,7 +164,10 @@ def prompt_see_all_beans(session):
                 print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
     else:
         print("No beans found.")
+############# eeeeeeeeeeeeeeeeeeeeeeeeee ###############
 
+
+############ 22222222222 uuuuuuuuuuuu ###########
 
 def prompt_rate_bean(session):
     name = input("Enter bean name: ")
@@ -151,7 +180,11 @@ def prompt_rate_bean(session):
         print("Bean rated successfully!")
     else:
         print("Bean not found.")
+############ eeeeeeeeeeeeeeeeeeeeeeeee ###############
 
+
+
+######### 11111111111111 ggggggggggggg #################
 
 def prompt_see_all_beans_government(session):
     beans = session.query(Bean).order_by(Bean.rating.desc()).all()
@@ -168,14 +201,19 @@ def prompt_see_all_beans_government(session):
                 print(f"Bean: {bean.name}, Rating: {bean.rating}, Farmer's Area: Unknown")
     else:
         print("No beans found.")
+############ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ######################
 
 
+
+
+######### 111111111111  ffffffffffffffffffff ##############
 def prompt_add_new_bean(session):
     name = input("Enter bean name: ")
     farmer_id = int(input("Enter farmer ID: "))
     area = input("Enter farmer's area: ")
+    phone_number = input("Enter your number: ")
 
-    farmer = Farmer(id=farmer_id, area=area)
+    farmer = Farmer(id=farmer_id, area=area, phone_number=phone_number)
     session.add(farmer)
     session.commit()
 
@@ -183,8 +221,29 @@ def prompt_add_new_bean(session):
     session.add(bean)
     session.commit()
     print("Bean added successfully!")
+####### eeeeeeeeeeeeeeeeeeeeeeeeeeeeee ##########################
 
 
+
+def prompt_delete_farmer(session):
+    farmer_id = int(input("Enter the ID of the farmer you want to delete: "))
+
+    farmer = session.query(Farmer).filter_by(id=farmer_id).first()
+    if farmer:
+        beans = session.query(Bean).filter_by(farmer_id=farmer_id).all()
+        for bean in beans:
+            session.delete(bean)
+
+        session.delete(farmer)
+        session.commit()
+        print("Farmer and their associated beans have been deleted successfully!")
+    else:
+        print("Farmer not found.")
+
+
+
+
+#########   1111111111 hhhhhhhhhhhhhhh ##############################
 def prompt_add_bean_method(session):
     name = input("Enter bean name: ")
     method = input("Enter preparation method: ")
@@ -196,6 +255,8 @@ def prompt_add_bean_method(session):
         print("Method added for the bean successfully!")
     else:
         print("Bean not found.")
+
+######## eeeeeeeeeeeeeeeeeeeeeee ###################################
 
 
 menu()
